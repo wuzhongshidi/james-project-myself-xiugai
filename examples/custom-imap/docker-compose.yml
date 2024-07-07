@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+
+  james:
+    image: apache/james:memory-latest
+    container_name: james
+    hostname: james.local
+    command:
+      - --generate-keystore
+    volumes:
+      - ./target/custom-imap-jar-with-dependencies.jar:/root/extensions-jars/custom-imap.jar
+      - ./sample-configuration/imapserver.xml:/root/conf/imapserver.xml
+    ports:
+      - "143:143"
+      - "8000:8000"

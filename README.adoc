@@ -1,0 +1,139 @@
+Apache James Project
+====================
+
+:latest_james_version: 3.8.0
+
+image:https://img.shields.io/badge/Join%20us-Mailing%20lists-purple.svg[link="https://james.apache.org/mail.html"]
+link:https://gitter.im/apache/james-project[image:https://badges.gitter.im/apache/james-project.svg[Join the chat at link:https://gitter.im/apache/james-project]]
+image:https://img.shields.io/badge/CI-Jenkins-blue.svg[link="https://ci-builds.apache.org/job/james/job/ApacheJames/"]
+image:https://img.shields.io/badge/Documentation-green.svg[link="https://james.apache.org/documentation.html"]
+image:https://img.shields.io/badge/Downloads-{latest_james_version}-yellow.svg[link="https://james.apache.org/download.cgi"]
+image:https://img.shields.io/badge/Images-docker-blue.svg[link="https://hub.docker.com/r/apache/james"]
+image:https://img.shields.io/badge/License-ApacheV2-orange.svg[link="https://www.apache.org/licenses/"]
+image:https://img.shields.io/badge/Latests-news-red.svg[link="https://james.apache.org/index.html#posts"]
+
+image::james-logo.png[link="https://james.apache.org"]
+
+*James* stands for *Java Apache Mail Enterprise Server!*
+
+It has a modular architecture based on a rich set of *modern* and *efficient* components which provides at the end
+*complete, stable, secure and extendable Mail Servers running on the JVM*.
+
+Create your *own personal solution* for emails treatment by assembling the components you need thanks to the Inversion
+of Control mail platform offered and  go further customizing filtering and routing rules using *James Mailet Container*.
+
+Supported protocols are: IMAP, SMTP, link:https://jmap.io[JMAP], POP3 and more...
+
+The link:https://james.staged.apache.org/james-distributed-app/{latest_james_version}/index.html[*Distributed server*] focuses on delivering an easy-to-operate scalable mail server based on modern technologies
+(Cassandra, S3, OpenSearch and RabbitMQ).
+
+Read more on https://james.apache.org/[our website].
+
+== How to contribute?
+
+.Read more...
+[%collapsible]
+====
+James is a project that lives from the contributions of its community! Anyone can contribute!
+
+Read https://james.apache.org/index.html#third[how to contribute].
+
+We more than welcome *articles* and *blog posts* about James. Contact us by https://james.apache.org/mail.html[email]
+or on https://gitter.im/apache/james-project[Gitter] to share your experiences.
+
+*Documentation* is an easy way to get started, and more than wanted! Check out the https://issues.apache.org/jira/issues/?jql=project%20%3D%20JAMES%20AND%20resolution%20%3D%20Unresolved%20AND%20labels%20%3D%20documentation%20ORDER%20BY%20priority%20DESC%2C%20updated%20DESC[~documentation] label on JIRA.
+
+And to get started with *code contributions*, search out the
+https://issues.apache.org/jira/issues/?jql=project%20%3D%20JAMES%20AND%20resolution%20%3D%20Unresolved%20AND%20labels%20%3D%20newbie%20ORDER%20BY%20priority%20DESC%2C%20updated%20DESC[~newbie],
+https://issues.apache.org/jira/issues/?jql=project%20%3D%20JAMES%20AND%20resolution%20%3D%20Unresolved%20AND%20labels%20%3D%20easyfix%20ORDER%20BY%20priority%20DESC%2C%20updated%20DESC[~easyfix],
+https://issues.apache.org/jira/issues/?jql=project%20%3D%20JAMES%20AND%20resolution%20%3D%20Unresolved%20AND%20labels%20%3D%20feature%20ORDER%20BY%20priority%20DESC%2C%20updated%20DESC[~feature] labels on JIRA.
+
+There is many other ways one can help us: packaging, communication, etc ...
+====
+
+== How to try James
+
+.Read more...
+[%collapsible]
+====
+Requirements: `docker` installed.
+
+Here you will try James server version {latest_james_version} thanks to a docker image. This James image has a default configuration using JPA
+(hsqldb) and Lucene. It also includes a default domain named james.local and three default users: user01@james.local,
+user02@james.local, user03@james.local, with their default password being 1234.
+
+Note: this James server will respond to IMAPS port 993 and SMTPS port 465.
+
+Pull and run the James image with the following single command:
+
+[subs="attributes"]
+----
+    $ docker run -p "465:465" -p "993:993" apache/james:demo-{latest_james_version}
+----
+
+Then, connect this image with for instance, Thunderbird.
+link:https://james.apache.org/howTo/imap-server.html[This tutorial] covers more in depth user and domain creation, as well as Thunderbird setup.
+
+Instructions that do not imply `docker` are also available link:https://james.apache.org/server/install.html[here].
+
+Instructions for the distributed server can be found link:server/apps/distributed-app/docs/modules/ROOT/pages/run/run-docker.adoc[here].
+====
+
+== How to check the compilation
+
+.Read more...
+[%collapsible]
+====
+We require link:https://maven.apache.org[maven] version 3.6.1 minimum to build the project.
+
+First, clone the repository locally:
+----
+    $ git clone git@github.com:apache/james-project.git
+----
+
+Then simply run `mvn clean install` within this directory to compile the project.
+
+Useful options includes:
+
+ - `-DskipTests` to skip the long to execute resource consuming test suite that requires a docker daemon.
+ - `-T 4` to parallelize the build on several CPUs.
+ - `-Dmaven.javadoc.skip=true` to skip the javadoc generation.
+====
+
+== How to run James in Docker
+
+.Read more...
+[%collapsible]
+====
+We maintain docker distribution for our link:https://github.com/google/guice[Guice] based applications:
+
+ * link:https://github.com/apache/james-project/blob/master/server/apps/distributed-app/README.adoc[Guice + Cassandra + RabbitMQ + S3 + OpenSearch (distributed)]
+ * link:https://github.com/apache/james-project/blob/master/server/apps/cassandra-app/README.adoc[Guice + Cassandra + OpenSearch]
+ * link:https://github.com/apache/james-project/blob/master/server/apps/jpa-app/README.adoc[Guice + JPA + Lucene]
+ * link:https://github.com/apache/james-project/blob/master/server/apps/memory-app/README.md[Guice + Memory (testing)]
+====
+
+== Using the CLI
+
+See https://james.apache.org/server/manage-cli.html[Manage James via the Command Line] for more info.
+
+== Develop on James
+
+James requires at least JDK 11 and Maven 3.6.1 to build.
+Some parts of James are written in Scala so one might need to enable Scala plugin in IDE.
+
+We maintain link:examples/README.md[code examples] to help you write your own extensions and wire your own servers.
+
+link:docs/modules/development/pages/deployment-tests.adoc[This page] details how to run deployment Tests.
+
+== Know more about James design
+
+James comes with a https://james.apache.org/documentation.html[Documentation] and https://github.com/linagora/james-project/tree/master/src/adr[Architectural Decision Records].
+
+A more precise description of the *Distributed Server* architecture can be found
+link:https://james.staged.apache.org/james-distributed-app/{latest_james_version}/architecture/index.html[here].
+
+== Articles for James community
+
+* link:docs/modules/community/pages/website.adoc[How to build and publish the website]
+* link:docs/modules/community/pages/release.adoc[How to release via maven release plugin]
